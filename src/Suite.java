@@ -31,7 +31,7 @@ public class Suite {
 		}
 	}
 	
-	public int add(int a, int b){
+	public static int add(int a, int b){
 		int res = a;
 		if (b > 0) {
 			while(b-- != 0) {
@@ -46,16 +46,16 @@ public class Suite {
 		return res;
 	}
 	
-	public int mult(int a, int b){
+	public static int mult(int a, int b){
 		int res = 0;
 		if(b > 0) {
 			while(b > 0) {
-				res = this.add(res, a);
+				res = Suite.add(res, a);
 				b--;
 			}
 		} else {
 			while(b < 0) {
-				res = this.add(res, a);
+				res = Suite.add(res, a);
 				b++;
 			}
 			res = -res;
@@ -64,7 +64,7 @@ public class Suite {
 		return res;
 	}
 	
-	public int divide(int a, int b) {
+	public static int divide(int a, int b) {
 		//Compute a/b
 		if(b == 0) {
 			throw new IllegalArgumentException("Argument b is 0");
@@ -72,7 +72,7 @@ public class Suite {
 		
 		int res = 0;
 		while(b > 0) {
-			b = add(b,-a);
+			b = Suite.add(b,-a);
 			res++;
 		}
 		
