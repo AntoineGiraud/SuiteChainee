@@ -23,7 +23,8 @@ public class Suite {
 		this.length = length;
 		
 		if(emptyState) {
-			//content est une liste vide
+			//content est une liste vide -> On la remet à 0.
+			content.reset();
 		} else {
 			//On charge dans content les entrees contenues dqns le fichier properties
 		}
@@ -128,6 +129,4 @@ public class Suite {
 			e.printStackTrace();
 		}
 	}
-
-	
 }
