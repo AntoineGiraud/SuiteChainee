@@ -26,6 +26,7 @@ public class Suite {
 			//content est une liste vide -> On la remet à 0.
 			content.reset();
 		} else {
+			// TODO
 			//On charge dans content les entrees contenues dqns le fichier properties
 		}
 	}
@@ -128,5 +129,18 @@ public class Suite {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * vérifie si le dernier contenu de la chaine écrit est valide ou pas (vérifie bien une suite)
+	 * <p>
+	 * isValid() s’applique seulement sur le fichier .properties
+	 * Cette méthode peut être implanter dans la classe où on fait la construction de la suite chainée.
+	 * </p> 
+	 * @return (boolean) Est ce que la chaine est valide ou non ?!
+	 */
+	private boolean isValid() {
+		// TODO
+		return false;
 	}
 }
