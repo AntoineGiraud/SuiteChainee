@@ -5,17 +5,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Classe permettant la gestion d'une suite chainée
+ * Les résultats et paramètres sont stockées dans un fichier properties
+ * Il est possible de reprendre la génération d'un suite en passant en paramètre path un fichier properties existant. 
+ * Si les paramètres de l'objet et du fichier ne correspondent pas, c'est celui de l'objet qui est pris en compte.
+ * @authors Antoine Giraud, Matthieu Faou
+ * 
+ */
 
 public class Suite {
-	String path;
-	String operator;
-	int val1;
-	int val2;
-	int index;
-	int length;
-	ListeChainee content;
+	private String path;
+	private String operator;
+	private int val1;
+	private int val2;
+	private int index;
+	private int length;
+	private ListeChainee content = new ListeChainee();
 	
+	/*
+	 * Constructor
+	 * Initialise l'objet
+	 * Lance les calculs
+	 */
 	public Suite(String path, String operator, int val1, int val2, int length, boolean emptyState) {
+		/*
+		 * La taille de la suite ne doit pas dépasser 10
+		 */
+		if(length > 10) {
+			throw new IllegalArgumentException("Suite length cannot be greater than 10.");
+		}
 		this.path = path;
 		this.operator = operator;
 		this.val1 = val1;
@@ -23,69 +42,41 @@ public class Suite {
 		this.length = length;
 		
 		if(emptyState) {
-			//content est une liste vide -> On la remet � 0.
-			content.reset();
+			//On remet la liste à zero
+			this.content.reset();
+			this.index = 0;
+			
 		} else {
-			// TODO
-			//On charge dans content les entrees contenues dqns le fichier properties
-		}
-	}
-	
-	public static int add(int a, int b){
-		int res = a;
-		if (b > 0) {
-			while(b-- != 0) {
-				res++;
-			}
-		}
-		else if (b < 0) {
-			while(b++ != 0) {
-				res--;
-			}
-		}
-		return res;
-	}
-	
-	public static int mult(int a, int b){
-		int res = 0;
-		if(b > 0) {
-			while(b > 0) {
-				res = Suite.add(res, a);
-				b--;
-			}
-		} else {
-			while(b < 0) {
-				res = Suite.add(res, a);
-				b++;
-			}
-			res = -res;
-		}
-
-		return res;
-	}
-	
-	public static int divide(int a, int b) {
-		//Compute a/b
-		if(b == 0) {
-			throw new IllegalArgumentException("Argument b is 0");
+			//Chargement des valeurs déjà calculées et présentes dans le fichier properties
+			this.load();
 		}
 		
-		int res = 0;
-		while(b > 0) {
-			b = Suite.add(b,-a);
-			res++;
+		if(content.getSize() == 0) {
+			/*
+			 * Si la liste est vide, on ajoute les deux premières valeurs et on incrémente index.
+			 */
+			this.content.add(this.val1);
+			this.content.add(this.val2);
+			this.index += 2;
 		}
 		
-		return res;
-		
+	
+		//On lance la génération de la suite.
+		this.iterativeCalc();
 	}
 	
+	
+	/*
+	 * Charge le fichier properties
+	 * S'il existe, les résultats déjà calculées sont insérées dans la Liste content
+	 */
 	private void load() {
         Properties properties = new Properties();
- 
+        
         File f = new File(this.path);
         FileInputStream fileInputStream = null;
         
+        //Ouverture du fichier
 		try {
 			fileInputStream = new FileInputStream(f);
 			properties.load(fileInputStream);
@@ -95,17 +86,28 @@ public class Suite {
 			e.printStackTrace();
 		}
         
-        if (fileInputStream == null) {
-            //Le fichier properties n'existe pas encore, on le cree
-        } else {
-        	//Sinon, on charge les valeurs deja calculee et on met a jour les parametres
-        	String contenue = properties.getProperty("Contenue");
+        if (fileInputStream != null) {
+        	//Si le fichier properties existe déjà, on charge les valeurs déjà calculées
+        	this.content.add(properties.getProperty("Contenue"));
         	this.index = Integer.parseInt(properties.getProperty("Indexe"));
+			int size = this.content.getSize();
+			
+			/*
+			 * L'index du dernier element calculé doit correspondre à la taille de la liste chainée
+			 */
+			if(size != this.index) {
+				throw new IllegalStateException("Le dernier index du fichier properties ne correspond pas à la taille de la liste chainée calculée.");
+			}
+			
+			/*this.val1 = this.content.getAt(size-1);
+			this.val2 = this.content.getAt(size-2);
+        	*/
         }
-        
-        this.save();
 	}
 	
+	/*
+	 * Sauvegarde l'objet suite dans un fichier properties
+	 */
 	private void save() {
         Properties properties = new Properties();
         properties.setProperty("Val1", Integer.toString(this.val1));
@@ -131,16 +133,125 @@ public class Suite {
 		}
 	}
 	
+
 	/**
-	 * v�rifie si le dernier contenu de la chaine �crit est valide ou pas (v�rifie bien une suite)
+	 * vérifie si le dernier contenu de la chaine écrit est valide ou pas (vérifie bien une suite)
 	 * <p>
-	 * isValid() s�applique seulement sur le fichier .properties
-	 * Cette m�thode peut �tre implanter dans la classe o� on fait la construction de la suite chain�e.
+	 * isValid() s'applique seulement sur le fichier .properties
+	 * Cette méthode peut être implanter dans la classe où on fait la construction de la suite chainée.
 	 * </p> 
 	 * @return (boolean) Est ce que la chaine est valide ou non ?!
 	 */
-	private boolean isValid() {
-		// TODO
+	public boolean isValid() {
+		int size = this.content.getSize();
+		int lastValue = this.content.getAt(size-1);
+		
+		if(lastValue == this.compute(this.content.getAt(size-3), this.content.getAt(size-2), this.operator)) {
+			return true;
+		}
+		
 		return false;
+	}
+	
+	/*
+	 * Calcule les éléments de la liste non encore calculés
+	 * Effectue l'operation operator sur les deux derniers elements calculés en utilisant la fonction compute
+	 * S'arrête lorsque la taille de la liste chainée est égale à la taille de suite souhaitée
+	 */
+	private void iterativeCalc() {
+		while(this.index < this.length) {
+			int newVal = compute(this.val1, this.val2, this.operator);
+			
+			this.content.add(newVal);
+			this.val1 = this.val2;
+			this.val2 = newVal;
+			this.index++;
+			this.save(); //On sauvegarde après chaque calcul pour ne pas perdre les résultats en cas de crash du programme.
+		}
+	}
+	
+	/*
+	 * Effectue le calcul de a et b avec l'opération operation
+	 * Retourne un entier
+	 */
+	private int compute(int a, int b, String operation) {
+		if(operation.equals("add")) {
+			return this.add(this.val1, this.val2);
+		} else if(operation.equals("sub")) {
+			return this.add(-this.val1, this.val2);
+		} else if(operation.equals("mult")) {
+			return this.mult(this.val1, this.val2);
+		} else if(operation.equals("div")) {
+			return this.divide(this.val1, this.val2);
+		} else {
+			//On admet seulement les opérateur add, sub, mult et div.
+			throw new IllegalArgumentException("This operator does not exist.");
+		}
+	}
+	
+	/*
+	 * Fonction réalisant une addition sans utilier +
+	 * Retourne a+b
+	 */
+	public int add(int a, int b){
+		int res = a;
+		if (b > 0) {
+			while(b-- != 0) {
+				res++;
+			}
+		}
+		else if (b < 0) {
+			while(b++ != 0) {
+				res--;
+			}
+		}
+		return res;
+	}
+	
+	/*
+	 * Fonction réalisant une multiplication sans utilier *
+	 * Retourne a*b
+	 */
+	public int mult(int a, int b){
+		int res = 0;
+		if(b > 0) {
+			while(b > 0) {
+				res = this.add(res, a);
+				b--;
+			}
+		} else {
+			while(b < 0) {
+				res = this.add(res, a);
+				b++;
+			}
+			res = -res;
+		}
+
+		return res;
+	}
+	
+	/*
+	 * Fonction réalisant une division entière euclidienne sans utilier /
+	 * Retourne le résultat entier de a/b
+	 */
+	public int divide(int a, int b) {
+		if(b == 0) {
+			throw new IllegalArgumentException("Argument b cannot be equal to 0");
+		}
+		
+		int res = 0;
+		while(b > 0) {
+			b = this.add(b,-a);
+			res++;
+		}
+		
+		return res;
+	}
+	
+	/*
+	 * Retourne la liste chainée contenant les valeurs calculées
+	 */
+	public ListeChainee getContent() {
+		return content;
 	}
 }
