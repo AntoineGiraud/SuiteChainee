@@ -61,13 +61,13 @@ public class SuiteChainee {
 		l.show();
 		System.out.println("----------------------------------------");
 		
-		// Test ajout d'une chaine de charact�res
+		// Test ajout d'une chaine de charactères
 		l.add("0,1, 2,3 ");
 		l.add("1,2");
 		l.show();
 		
 		//Test de la suite chainée
-		System.out.println("-----------------test---------------------");
+		System.out.println("-----------------test de la suite---------------------");
 		Suite mySuite = new Suite("mySuite.properties", "add", 1, 2, 4, true);
 		mySuite.getContent().show();
 		
@@ -82,6 +82,7 @@ public class SuiteChainee {
 		mySuite3.getContent().show();
 		Suite mySuite4 = new Suite("mySuite.properties", "sub", 1, 2, 10, true);
 		mySuite4.getContent().show();
+		System.out.println(mySuite4.isValid());
 	}
 
 }

@@ -98,10 +98,6 @@ public class Suite {
 			if(size != this.index) {
 				throw new IllegalStateException("Le dernier index du fichier properties ne correspond pas à la taille de la liste chainée calculée.");
 			}
-			
-			/*this.val1 = this.content.getAt(size-1);
-			this.val2 = this.content.getAt(size-2);
-        	*/
         }
 	}
 	
@@ -135,18 +131,21 @@ public class Suite {
 	
 
 	/**
-	 * vérifie si le dernier contenu de la chaine écrit est valide ou pas (vérifie bien une suite)
+	 * Vérifie si le dernier contenu de la chaine écrit est valide ou pas (vérifie bien une suite)
 	 * <p>
 	 * isValid() s'applique seulement sur le fichier .properties
-	 * Cette méthode peut être implanter dans la classe où on fait la construction de la suite chainée.
+	 * Cette méthode peut être implantée dans la classe où on fait la construction de la suite chainée.
 	 * </p> 
 	 * @return (boolean) Est ce que la chaine est valide ou non ?!
 	 */
 	public boolean isValid() {
-		int size = this.content.getSize();
-		int lastValue = this.content.getAt(size-1);
+		//On charge le contenu du fichier properties sous forme d'une suite
+		Suite savedSuite = new Suite(this.path, this.operator, this.val1, this.val2, this.length, false);
+		int size = savedSuite.content.getSize();
+		int lastValue = savedSuite.content.getAt(size-1);
 		
-		if(lastValue == this.compute(this.content.getAt(size-3), this.content.getAt(size-2), this.operator)) {
+		//Vérification de la dernière valeur
+		if(lastValue == this.compute(savedSuite.content.getAt(size-3), savedSuite.content.getAt(size-2), savedSuite.operator)) {
 			return true;
 		}
 		
@@ -176,13 +175,13 @@ public class Suite {
 	 */
 	private int compute(int a, int b, String operation) {
 		if(operation.equals("add")) {
-			return this.add(this.val1, this.val2);
+			return this.add(a, b);
 		} else if(operation.equals("sub")) {
-			return this.add(-this.val1, this.val2);
+			return this.add(-a, b);
 		} else if(operation.equals("mult")) {
-			return this.mult(this.val1, this.val2);
+			return this.mult(a, b);
 		} else if(operation.equals("div")) {
-			return this.divide(this.val1, this.val2);
+			return this.divide(a, b);
 		} else {
 			//On admet seulement les opérateur add, sub, mult et div.
 			throw new IllegalArgumentException("This operator does not exist.");

@@ -30,7 +30,7 @@ public class ListeChainee {
 	}
 	
 	/**
-	 * On ajoute un nouveau maillon à notre liste. Il sera la nouvelle tête de noter liste.
+	 * On ajoute un nouveau maillon à notre liste. Il sera la nouvelle tête de notre liste.
 	 * <p>
 	 * Bien comprendre donc que notre premier élement en tête est le plus récent. Pour accéder au plus vieux il faut parcourir toute la liste.
 	 * 
@@ -41,19 +41,19 @@ public class ListeChainee {
 	}
 	
 	public void add(String chaine){
-		if (chaine.matches("^([0-9]+[,]?[ ]?)+$")) { // On vérifie que l'on a une chaine du type : "0, 1,2 " ou "0,1, 2, "
+		if (chaine.matches("^([-]?[0-9]+[,]?[ ]?)+$")) { // On vérifie que l'on a une chaine du type : "0, 1,2 " ou "0,1, 2, "
 			// Si c'est le cas on va parcourir la chaine pour trouver les éléments "0, " ou "1," ou "2"
-			Pattern pattern = Pattern.compile("([0-9])+[,]?[ ]?");
+			Pattern pattern = Pattern.compile("([-]?[0-9])+[,]?[ ]?");
 	        Matcher matcher = pattern.matcher(chaine);
 	        boolean found = false;
 	        while (matcher.find()) {
 	        	String res = matcher.group().trim(); // On s'assure qu'il n'y a plus de " " à la fin de la chaine
-	        	if (res.matches("^([0-9]+[,])$")) { // Si jamais on a en element du genre "1," on enlève le dernier element la ","
+	        	if (res.matches("^([-]?[0-9]+[,])$")) { // Si jamais on a en element du genre "1," on enlève le dernier element la ","
 	        		res = res.substring(0, res.length()-1);
 				}
 	        	int element = Integer.parseInt(res);
 	        	this.add(element);
-	        	System.out.println(element+";");
+	        	//System.out.println(element+";");
 	            found = true;
 	        }
 	        if(!found){
@@ -123,7 +123,7 @@ public class ListeChainee {
 	}
 	
 	/**
-	 * On remplace la valeur de l'élement qui a la position XX dans notre chaine par une nouvelle XX passée en paramàtres 
+	 * On remplace la valeur de l'élement qui a la position XX dans notre chaine par une nouvelle XX passée en paramètres 
 	 * @param element (int) nouvelle valeur
 	 * @param position (int) clé / position de l'élément à changer
 	 * @throws IllegalStateException Si on a une liste vide ou une position inconue
@@ -237,7 +237,7 @@ public class ListeChainee {
 	
 	/**
 	 * On parcours directement la chaine une seule fois et on affiche les valeurrs rencontrées.
-	 * <br>Comme on ajoute les nouvelles valeurs au début de notre pile, on affiche alors les valeurs dans l'ordre du plus r�cent au plus ancien
+	 * <br>Comme on ajoute les nouvelles valeurs au début de notre pile, on affiche alors les valeurs dans l'ordre du plus récent au plus ancien
 	 */
 	public void showByKeyOrderedDesc() {
 		if (this.tete == null) {
