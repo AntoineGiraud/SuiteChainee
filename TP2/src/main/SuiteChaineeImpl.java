@@ -29,16 +29,17 @@ public class SuiteChaineeImpl implements SuiteChainee {
 		if (taille>=10)
 		{
 			System.out.println("taille chaine doit etre inferieur/egal a 10");
-			System.exit(0);
-		}
-		if(etatVide==false){
+			//System.exit(0);
+		}else if (etatVide==false && taille<=Integer.parseInt(prop.getProperty("taille"))){
 			
-			if(taille<=Integer.parseInt(prop.getProperty("taille"))){
-					System.out.println("chaine deja pleine");
-					System.exit(0);
-			}
+			System.out.println("chaine deja pleine");
+			//System.exit(0);
+						
+		}else{
+			
+			if(etatVide==false){
 			taille= taille-Integer.parseInt(prop.getProperty("taille"));
-		}
+			}
 		
 		MyList list = new MyListImpl();	
 		Calculator myCalculator= new CalculatorImpl();
@@ -85,6 +86,7 @@ public class SuiteChaineeImpl implements SuiteChainee {
 		   break;
 		   default:System.out.println("operateur "+op+" non identifié");
 			   break;
+		
 		}
 		
 //save data in properties file	
@@ -108,8 +110,10 @@ public class SuiteChaineeImpl implements SuiteChainee {
 		prop.save(editpropFile, "save");
 		
 		propFile.close();
-		
+		}
 	}
+		
+	
 	
 	public boolean isValid(String path) throws Exception {
 		prop = new Properties();

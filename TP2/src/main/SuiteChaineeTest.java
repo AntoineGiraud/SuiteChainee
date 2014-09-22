@@ -26,7 +26,7 @@ public class SuiteChaineeTest {
 	public void tearDown() throws Exception {
 	}
 
-	/*
+
 	@Test
 	public void testEC1() {
 		boolean thrown = false;
@@ -200,7 +200,6 @@ public class SuiteChaineeTest {
 		try {
 			System.out.println("Hello World");
 			suiteChainee.build("config.properties", "soust", 1, 3, 15, true);
-			System.out.println("Le programme a été arrété ... Vous ne verrez Jamais !!!");
 			assertFalse(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
 			thrown = true;
