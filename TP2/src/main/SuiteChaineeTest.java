@@ -29,77 +29,70 @@ public class SuiteChaineeTest {
 
 	@Test
 	public void testEC1() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config.properties", "div", 3, 2, 0, true);
-			assertFalse(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			thrown = true;
-		}
-		assertTrue(thrown);
-	}
-	@Test
-	public void testEC5() {
-		boolean thrown = false;
-		try {
-			suiteChainee.build("config.properties", "div", 0, 0, 2, true);
-			assertTrue(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			thrown = true;
-		}
-		assertFalse(thrown);
-	}
-
-	@Test
-	public void testEC2() {
-		try {
-			suiteChainee.build("config.properties", "add", 3, 2, 1, true);
-			assertTrue(suiteChainee.isValid("config.properties"));
+			suiteChainee.build("config.properties", "add", 3, 5, 0, true);
+			fail("Taille liste trop petite (<= 0), should cause an exception");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	// Fichier qui n'existe pas ...
+	@Test
+	public void testEC2() {
+		try {
+			suiteChainee.build("config.properties", "add", 3, 5, 2, true);
+			assertTrue(suiteChainee.isValid("config.properties"));
+		} catch (Exception e) {
+			fail("should not cause an exception");
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void testEC3() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config2.properties", "mult", 0, 0, 3, false);
+			suiteChainee.build("test.properties", "soust", 0,0, 3, false);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			fail("should not cause an exception");
+			e.printStackTrace();
 		}
-		assertFalse(thrown);
 	}
-
 	@Test
 	public void testEC4() {
-		boolean thrown = false;
 		try {
-			System.out.println("Hello World");
-			
-			suiteChainee.build("config.properties", "soust", 1, 3, 10, true);
-			System.out.println("Le programme a été arrété ... Vous ne verrez Jamais !!!");
+			suiteChainee.build("config.properties", "mult", 3,5, 10, true);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			fail("should not cause an exception");
+			e.printStackTrace();
 		}
-		assertFalse(thrown);
 	}
-
+	@Test
+	public void testEC5() {
+		try {
+			suiteChainee.build("config.properties", "div", 0,0, 2, true);
+			assertTrue(suiteChainee.isValid("config.properties"));
+		} catch (Exception e) {
+			fail("should not cause an exception");
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void testEC6() {
-		boolean thrown = false;
 		try {
-			System.out.println("Hello World");
-			suiteChainee.build("config.properties", "soust", 1, 3, 15, true);
-			System.out.println("Le programme a été arrété ... Vous ne verrez Jamais !!!");
-			assertFalse(suiteChainee.isValid("config.properties"));
+			suiteChainee.build("config.properties", "add", 3,5,15, true);
+			fail("Taille liste trop grande (> 10), should cause an exception");
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
 		}
-		assertTrue(thrown);
+	}
+	@Test
+	public void testEC7() {
+		try {
+			suiteChainee.build("config.properties", "abcd", 3,5,15, true);
+			fail("wrong Operator should cause an exception");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	//*/
 	
@@ -107,103 +100,129 @@ public class SuiteChaineeTest {
 	
 	@Test
 	public void testAC1() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config.properties", "div", 3, 2, 0, true);
-			assertFalse(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			thrown = true;
-		}
-		assertTrue(thrown);
-	}
-	@Test
-	public void testAC2() {
-		try {
-			suiteChainee.build("config.properties", "add", 1, -7, 1, true);
-			assertTrue(suiteChainee.isValid("config.properties"));
+			suiteChainee.build("config.properties", "add", 3, 5, 0, true);
+			fail("Taille liste trop petite (<= 0), should cause an exception");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	// si on ne vide pas la chaine ...?!
 	@Test
-	public void testAC32() {
-		boolean thrown = false;
+	public void testAC2() {
 		try {
-			suiteChainee.build("config.properties", "mult", 7, 8, 3, false);
+			suiteChainee.build("config.properties", "add", 3, 5, 2, true);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertFalse(thrown);
 	}
-	// Fichier qui n'existe pas ...
 	@Test
 	public void testAC3() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config2.properties", "mult", 7, 8, 3, false);
+			suiteChainee.build("config.properties", "soust", 3, 5, 3, true);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertFalse(thrown);
 	}
-	// Fichier qui n'existe pas ...
 	@Test
 	public void testAC4() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config.properties", "soust", 0, 0, 4, true);
+			suiteChainee.build("test.properties", "mult", 3, 5, 10, true);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertFalse(thrown);
 	}
 	@Test
 	public void testAC5() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config.properties", "div", 0, 8, 2, true);
+			suiteChainee.build("config.properties", "div", 3, 5,2, true);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertFalse(thrown);
 	}
 	@Test
 	public void testAC6() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config.properties", "div", 4, 5, 3, true);
+			suiteChainee.build("config.properties", "div", 3, 5,3, false);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertFalse(thrown);
 	}
 	@Test
 	public void testAC7() {
-		boolean thrown = false;
 		try {
-			suiteChainee.build("config.properties", "div", 4, 0, 2, true);
+			suiteChainee.build("config.properties", "div",3, 5, 7, true);
 			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertFalse(thrown);
 	}
 	@Test
 	public void testAC8() {
-		boolean thrown = false;
 		try {
-			System.out.println("Hello World");
-			suiteChainee.build("config.properties", "soust", 1, 3, 15, true);
-			assertFalse(suiteChainee.isValid("config.properties"));
+			suiteChainee.build("config.properties", "div", 3, 0, 2, true);
+			assertTrue(suiteChainee.isValid("config.properties"));
 		} catch (Exception e) {
-			thrown = true;
+			e.printStackTrace();
+			fail("should not cause an exception");
 		}
-		assertTrue(thrown);
+	}
+	@Test
+	public void testAC9() {
+		try {
+			suiteChainee.build("config.properties", "div", 0, 5, 2, true);
+			assertTrue(suiteChainee.isValid("config.properties"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("should not cause an exception");
+		}
+	}
+	@Test
+	public void testAC10() {
+		try {
+			suiteChainee.build("config.properties", "div", 0, 5, 3, true);
+			assertTrue(suiteChainee.isValid("config.properties"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("should not cause an exception");
+		}
+	}
+	@Test
+	public void testA11() {
+		try {
+			suiteChainee.build("config.properties", "div", 0, 0, 2, true);
+			assertTrue(suiteChainee.isValid("config.properties"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("should not cause an exception");
+		}
+	}
+	@Test
+	public void testA12() {
+		try {
+			suiteChainee.build("config.properties", "add", 3, 5, 15, true);
+			fail("Taille liste trop grande (> 10), should cause an exception");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testA13() {
+		try {
+			suiteChainee.build("config.properties", "abcd", 3, 5, 2, true);
+			fail("wrong Operator should cause an exception");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
