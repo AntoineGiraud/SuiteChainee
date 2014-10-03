@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SuiteChaineeTest {
+public class SuiteChaineeTestAC {
 	protected SuiteChainee suiteChainee;
 	
 	@Before
@@ -25,76 +25,6 @@ public class SuiteChaineeTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
-
-	@Test
-	public void testEC1() {
-		try {
-			suiteChainee.build("config.properties", "add", 3, 5, 0, true);
-			fail("Taille liste trop petite (<= 0), should cause an exception");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testEC2() {
-		try {
-			suiteChainee.build("config.properties", "add", 3, 5, 2, true);
-			assertTrue(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			fail("should not cause an exception");
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testEC3() {
-		try {
-			suiteChainee.build("test.properties", "soust", 0,0, 3, false);
-			assertTrue(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			fail("should not cause an exception");
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testEC4() {
-		try {
-			suiteChainee.build("config.properties", "mult", 3,5, 10, true);
-			assertTrue(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			fail("should not cause an exception");
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testEC5() {
-		try {
-			suiteChainee.build("config.properties", "div", 0,0, 2, true);
-			assertTrue(suiteChainee.isValid("config.properties"));
-		} catch (Exception e) {
-			fail("should not cause an exception");
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testEC6() {
-		try {
-			suiteChainee.build("config.properties", "add", 3,5,15, true);
-			fail("Taille liste trop grande (> 10), should cause an exception");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void testEC7() {
-		try {
-			suiteChainee.build("config.properties", "abcd", 3,5,15, true);
-			fail("wrong Operator should cause an exception");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	//*/
 	
 	// -------------------- Tests All Combinations -------------------- //
 	
@@ -208,7 +138,7 @@ public class SuiteChaineeTest {
 		}
 	}
 	@Test
-	public void testA12() {
+	public void testAC12() {
 		try {
 			suiteChainee.build("config.properties", "add", 3, 5, 15, true);
 			fail("Taille liste trop grande (> 10), should cause an exception");
@@ -217,7 +147,7 @@ public class SuiteChaineeTest {
 		}
 	}
 	@Test
-	public void testA13() {
+	public void testAC13() {
 		try {
 			suiteChainee.build("config.properties", "abcd", 3, 5, 2, true);
 			fail("wrong Operator should cause an exception");
