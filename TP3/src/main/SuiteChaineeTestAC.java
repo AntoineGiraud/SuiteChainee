@@ -28,7 +28,7 @@ public class SuiteChaineeTestAC {
 	
 	// -------------------- Tests All Combinations -------------------- //
 	
-	@Test
+	@Test(expected=AssertionError.class)
 	public void testAC1() {
 		try {
 			suiteChainee.build("config.properties", "add", 3, 5, 0, true);

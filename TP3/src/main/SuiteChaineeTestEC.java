@@ -27,7 +27,7 @@ public class SuiteChaineeTestEC {
 	}
 
 
-	@Test
+	@Test(expected=AssertionError.class)
 	public void testEC1() {
 		try {
 			suiteChainee.build("config.properties", "add", 3, 5, 0, true);
@@ -76,7 +76,8 @@ public class SuiteChaineeTestEC {
 			e.printStackTrace();
 		}
 	}
-	@Test
+	
+	@Test(expected=AssertionError.class)
 	public void testEC6() {
 		try {
 			suiteChainee.build("config.properties", "add", 3,5,15, true);
