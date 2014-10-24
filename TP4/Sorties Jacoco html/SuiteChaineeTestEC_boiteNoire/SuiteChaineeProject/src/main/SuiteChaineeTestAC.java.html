@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SuiteChaineeTestAC.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SuiteChaineeTestEC (3 oct. 2014 13:20:13)</a> &gt; <a href="../../index.html" class="el_group">SuiteChaineeProject</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">SuiteChaineeTestAC.java</span></div><h1>SuiteChaineeTestAC.java</h1><pre class="source lang-java linenums">package main;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="nc" id="L9">public class SuiteChaineeTestAC {</span>
+	protected SuiteChainee suiteChainee;
+	
+	@Before
+	public void setUp() throws Exception {
+		// call for main operation
+		//suiteChainee.build(path, op, val1, val2, taille, etatVide) 
+		//path=&quot;config.properties&quot;
+		//op{&quot;add&quot;,&quot;mult&quot;,&quot;soust&quot;,div&quot;}
+		//val1,val2 are int
+		//0&lt; taille &lt;=10
+		//etatVide{true,false}
+		
+<span class="nc" id="L22">		suiteChainee= new SuiteChaineeImpl();</span>
+<span class="nc" id="L23">	}</span>
+
+	@After
+	public void tearDown() throws Exception {
+<span class="nc" id="L27">	}</span>
+	
+	// -------------------- Tests All Combinations -------------------- //
+	
+	@Test
+	public void testAC1() {
+		try {
+<span class="nc" id="L34">			suiteChainee.build(&quot;config.properties&quot;, &quot;add&quot;, 3, 5, 0, true);</span>
+<span class="nc" id="L35">			fail(&quot;Taille liste trop petite (&lt;= 0), should cause an exception&quot;);</span>
+<span class="nc" id="L36">		} catch (Exception e) {</span>
+<span class="nc" id="L37">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L39">	}</span>
+	@Test
+	public void testAC2() {
+		try {
+<span class="nc" id="L43">			suiteChainee.build(&quot;config.properties&quot;, &quot;add&quot;, 3, 5, 2, true);</span>
+<span class="nc" id="L44">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L45">		} catch (Exception e) {</span>
+<span class="nc" id="L46">			e.printStackTrace();</span>
+<span class="nc" id="L47">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L49">	}</span>
+	@Test
+	public void testAC3() {
+		try {
+<span class="nc" id="L53">			suiteChainee.build(&quot;config.properties&quot;, &quot;soust&quot;, 3, 5, 3, true);</span>
+<span class="nc" id="L54">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L55">		} catch (Exception e) {</span>
+<span class="nc" id="L56">			e.printStackTrace();</span>
+<span class="nc" id="L57">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L59">	}</span>
+	@Test
+	public void testAC4() {
+		try {
+<span class="nc" id="L63">			suiteChainee.build(&quot;test.properties&quot;, &quot;mult&quot;, 3, 5, 10, true);</span>
+<span class="nc" id="L64">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L65">		} catch (Exception e) {</span>
+<span class="nc" id="L66">			e.printStackTrace();</span>
+<span class="nc" id="L67">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L69">	}</span>
+	@Test
+	public void testAC5() {
+		try {
+<span class="nc" id="L73">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;, 3, 5,2, true);</span>
+<span class="nc" id="L74">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L75">		} catch (Exception e) {</span>
+<span class="nc" id="L76">			e.printStackTrace();</span>
+<span class="nc" id="L77">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L79">	}</span>
+	@Test
+	public void testAC6() {
+		try {
+<span class="nc" id="L83">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;, 3, 5,3, false);</span>
+<span class="nc" id="L84">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L85">		} catch (Exception e) {</span>
+<span class="nc" id="L86">			e.printStackTrace();</span>
+<span class="nc" id="L87">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L89">	}</span>
+	@Test
+	public void testAC7() {
+		try {
+<span class="nc" id="L93">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;,3, 5, 7, true);</span>
+<span class="nc" id="L94">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L95">		} catch (Exception e) {</span>
+<span class="nc" id="L96">			e.printStackTrace();</span>
+<span class="nc" id="L97">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L99">	}</span>
+	@Test
+	public void testAC8() {
+		try {
+<span class="nc" id="L103">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;, 3, 0, 2, true);</span>
+<span class="nc" id="L104">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L105">		} catch (Exception e) {</span>
+<span class="nc" id="L106">			e.printStackTrace();</span>
+<span class="nc" id="L107">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L109">	}</span>
+	@Test
+	public void testAC9() {
+		try {
+<span class="nc" id="L113">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;, 0, 5, 2, true);</span>
+<span class="nc" id="L114">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L115">		} catch (Exception e) {</span>
+<span class="nc" id="L116">			e.printStackTrace();</span>
+<span class="nc" id="L117">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L119">	}</span>
+	@Test
+	public void testAC10() {
+		try {
+<span class="nc" id="L123">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;, 0, 5, 3, true);</span>
+<span class="nc" id="L124">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L125">		} catch (Exception e) {</span>
+<span class="nc" id="L126">			e.printStackTrace();</span>
+<span class="nc" id="L127">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L129">	}</span>
+	@Test
+	public void testA11() {
+		try {
+<span class="nc" id="L133">			suiteChainee.build(&quot;config.properties&quot;, &quot;div&quot;, 0, 0, 2, true);</span>
+<span class="nc" id="L134">			assertTrue(suiteChainee.isValid(&quot;config.properties&quot;));</span>
+<span class="nc" id="L135">		} catch (Exception e) {</span>
+<span class="nc" id="L136">			e.printStackTrace();</span>
+<span class="nc" id="L137">			fail(&quot;should not cause an exception&quot;);</span>
+		}
+<span class="nc" id="L139">	}</span>
+	@Test
+	public void testAC12() {
+		try {
+<span class="nc" id="L143">			suiteChainee.build(&quot;config.properties&quot;, &quot;add&quot;, 3, 5, 15, true);</span>
+<span class="nc" id="L144">			fail(&quot;Taille liste trop grande (&gt; 10), should cause an exception&quot;);</span>
+<span class="nc" id="L145">		} catch (Exception e) {</span>
+<span class="nc" id="L146">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L148">	}</span>
+	@Test
+	public void testAC13() {
+		try {
+<span class="nc" id="L152">			suiteChainee.build(&quot;config.properties&quot;, &quot;abcd&quot;, 3, 5, 2, true);</span>
+<span class="nc" id="L153">			fail(&quot;wrong Operator should cause an exception&quot;);</span>
+<span class="nc" id="L154">		} catch (Exception e) {</span>
+<span class="nc" id="L155">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L157">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>SuiteChaineeTestEC (3 oct. 2014 13:20:13)</div></body></html>
