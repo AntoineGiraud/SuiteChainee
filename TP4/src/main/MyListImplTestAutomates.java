@@ -32,55 +32,40 @@ public class MyListImplTestAutomates {
 	}
 
 	@Test
-	//Test du reset sur sur une chaine non vide
+	//Test du reset sur sur une chaine vide
 	//Etat final souhaité : chaine vide
 	public void test1() {
-		if (myList.getSize() != 0)
-			fail("On voullait tester ici sur une liste déjà vide.");
-		
+		assertTrue(myList.getSize() == 0);
 		myList.reset();
-		
 		assertTrue(myList.getSize() == 0);
 	}
 
 	@Test(expected=ArrayIndexOutOfBoundsException.class)
-	//Test du reset sur sur une chaine non vide
-	//Etat final souhaité : chaine vide
+	//Test du removeAt sur une chaine vide
+	//Etat final souhaité : ArrayIndexOutOfBoundsException
 	public void test2() {
-		if (myList.getSize() != 0)
-			fail("On voullait tester ici sur une liste déjà vide.");
-		try {
-			myList.removeAt(0);
-			fail("Division par 0, should cause an exception");
-		} catch (Exception e) {System.out.println(e.getClass().toString());}
+		assertTrue(myList.getSize() == 0);
+		myList.removeAt(0);
 	}
 
 	@Test(expected=ArrayIndexOutOfBoundsException.class)
-	//Test du reset sur sur une chaine non vide
-	//Etat final souhaité : chaine vide
+	//Test du getAt sur une chaine vide
+	//Etat final souhaité : ArrayIndexOutOfBoundsException
 	public void test3() {
-		if (myList.getSize() != 0)
-			fail("On voullait tester ici sur une liste déjà vide.");
-		try {
-			myList.getAt(0);
-			fail("Division par 0, should cause an exception");
-		} catch (Exception e) {System.out.println(e.getClass().toString());}
+		assertTrue(myList.getSize() == 0);
+		myList.getAt(0);
 	}
 
 	@Test(expected=ArrayIndexOutOfBoundsException.class)
-	//Test du reset sur sur une chaine non vide
-	//Etat final souhaité : chaine vide
+	//Test du setAt sur une chaine vide
+	//Etat final souhaité : ArrayIndexOutOfBoundsException
 	public void test4() {
-		if (myList.getSize() != 0)
-			fail("On voullait tester ici sur une liste déjà vide.");
-		try {
-			myList.setAt(0, 0);
-			fail("Division par 0, should cause an exception");
-		} catch (Exception e) {System.out.println(e.getClass().toString());}
+		assertTrue(myList.getSize() == 0);
+		myList.setAt(0, 0);
 	}
 
 	@Test
-	//Test du reset sur sur une chaine non vide
+	//Test du reset sur une chaine non vide
 	//Etat final souhaité : chaine vide
 	public void test5() {
 		myList.add(5);
@@ -100,7 +85,7 @@ public class MyListImplTestAutomates {
 		assertTrue(myList.getSize() == 0);
 	}
 
-	//Test du removeItem sur sur une chaine de taille strictement supérieure à 1
+	//Test du removeItem sur une chaine de taille strictement supérieure à 1
 	//Etat final souhaité : chaine non vide
 	@Test
 	public void test7a() {
@@ -112,7 +97,7 @@ public class MyListImplTestAutomates {
 		assertTrue(myList.getSize() > 0);
 	}
 
-	//Test du removeItem sur sur une chaine de taille 1 mais sur un élément non contenu dans la liste
+	//Test du removeItem sur une chaine de taille 1 mais sur un élément non contenu dans la liste
 	//Etat final souhaité : chaine non vide
 	@Test
 	public void test7b() {
