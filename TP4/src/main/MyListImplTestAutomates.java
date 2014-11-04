@@ -34,6 +34,54 @@ public class MyListImplTestAutomates {
 	@Test
 	//Test du reset sur sur une chaine non vide
 	//Etat final souhaité : chaine vide
+	public void test1() {
+		if (myList.getSize() != 0)
+			fail("On voullait tester ici sur une liste déjà vide.");
+		
+		myList.reset();
+		
+		assertTrue(myList.getSize() == 0);
+	}
+
+	@Test(expected=ArrayIndexOutOfBoundsException.class)
+	//Test du reset sur sur une chaine non vide
+	//Etat final souhaité : chaine vide
+	public void test2() {
+		if (myList.getSize() != 0)
+			fail("On voullait tester ici sur une liste déjà vide.");
+		try {
+			myList.removeAt(0);
+			fail("Division par 0, should cause an exception");
+		} catch (Exception e) {System.out.println(e.getClass().toString());}
+	}
+
+	@Test(expected=ArrayIndexOutOfBoundsException.class)
+	//Test du reset sur sur une chaine non vide
+	//Etat final souhaité : chaine vide
+	public void test3() {
+		if (myList.getSize() != 0)
+			fail("On voullait tester ici sur une liste déjà vide.");
+		try {
+			myList.getAt(0);
+			fail("Division par 0, should cause an exception");
+		} catch (Exception e) {System.out.println(e.getClass().toString());}
+	}
+
+	@Test(expected=ArrayIndexOutOfBoundsException.class)
+	//Test du reset sur sur une chaine non vide
+	//Etat final souhaité : chaine vide
+	public void test4() {
+		if (myList.getSize() != 0)
+			fail("On voullait tester ici sur une liste déjà vide.");
+		try {
+			myList.setAt(0, 0);
+			fail("Division par 0, should cause an exception");
+		} catch (Exception e) {System.out.println(e.getClass().toString());}
+	}
+
+	@Test
+	//Test du reset sur sur une chaine non vide
+	//Etat final souhaité : chaine vide
 	public void test5() {
 		myList.add(5);
 		myList.add(3);
