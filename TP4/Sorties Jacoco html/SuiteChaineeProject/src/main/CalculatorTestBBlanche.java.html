@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>CalculatorTestBBlanche.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">MyListImplTestAutomates (6 nov. 2014 23:21:22)</a> &gt; <a href="../../index.html" class="el_group">SuiteChaineeProject</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">CalculatorTestBBlanche.java</span></div><h1>CalculatorTestBBlanche.java</h1><pre class="source lang-java linenums">package main;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="nc" id="L9">public class CalculatorTestBBlanche {</span>
+	protected Calculator myCalculator;
+	
+
+	@Before
+	public void setUp() throws Exception {		
+<span class="nc" id="L15">		myCalculator= new CalculatorImpl();</span>
+<span class="nc" id="L16">	}</span>
+
+	@After
+	public void tearDown() throws Exception {
+<span class="nc" id="L20">	}</span>
+
+	@Test
+	public void testAdd() {
+<span class="nc" id="L24">		assertEquals(3, myCalculator.add(1, 2));</span>
+<span class="nc" id="L25">		assertEquals(-1, myCalculator.add(1, -2));</span>
+<span class="nc" id="L26">	}</span>
+	@Test
+	public void testSubstract() {
+<span class="nc" id="L29">		assertEquals(-1, myCalculator.substract(1, 2));</span>
+<span class="nc" id="L30">		assertEquals(3, myCalculator.substract(1, -2));</span>
+<span class="nc" id="L31">	}</span>
+	@Test
+	public void testMultiply() {
+<span class="nc" id="L34">		assertEquals(21, myCalculator.multiply(3, 7));</span>
+<span class="nc" id="L35">		assertEquals(-21, myCalculator.multiply(-3, 7));</span>
+<span class="nc" id="L36">		assertEquals(21, myCalculator.multiply(-3, -7));</span>
+<span class="nc" id="L37">		assertEquals(-21, myCalculator.multiply(3, -7));</span>
+<span class="nc" id="L38">		assertEquals(0, myCalculator.multiply(0, -7));</span>
+<span class="nc" id="L39">		assertEquals(0, myCalculator.multiply(3, 0));</span>
+<span class="nc" id="L40">		assertEquals(0, myCalculator.multiply(0, 0));</span>
+<span class="nc" id="L41">	}</span>
+
+	@Test
+	public void testdiv() {
+		// Quand on a un reste null
+<span class="nc" id="L46">		assertEquals(5, myCalculator.divide(15, 3));</span>
+<span class="nc" id="L47">		assertEquals(-5, myCalculator.divide(-15, 3));</span>
+<span class="nc" id="L48">		assertEquals(5, myCalculator.divide(-15, -3));</span>
+<span class="nc" id="L49">		assertEquals(-5, myCalculator.divide(15, -3));</span>
+
+<span class="nc" id="L51">		assertEquals(0, myCalculator.divide(0, -3));</span>
+<span class="nc" id="L52">		assertEquals(0, myCalculator.divide(0, 3));</span>
+		try {
+<span class="nc" id="L54">			myCalculator.divide(3, 0);</span>
+<span class="nc" id="L55">			fail(&quot;Division par 0, should cause an exception&quot;);</span>
+<span class="nc" id="L56">		} catch (Exception e) {e.printStackTrace();}</span>
+
+		// Quand on a un résultat à virgule
+<span class="nc" id="L59">		assertEquals(4, myCalculator.divide(15, 4));</span>
+<span class="nc" id="L60">		assertEquals(-4, myCalculator.divide(15, -4));</span>
+<span class="nc" id="L61">		assertEquals(-4, myCalculator.divide(-15, 4));</span>
+<span class="nc" id="L62">		assertEquals(4, myCalculator.divide(-15, -4));</span>
+		
+		// Quand on a un résultat à virgule
+<span class="nc" id="L65">		assertEquals(0, myCalculator.divide(4, 15));</span>
+<span class="nc" id="L66">		assertEquals(0, myCalculator.divide(-4, 15));</span>
+<span class="nc" id="L67">		assertEquals(0, myCalculator.divide(-4, -15));</span>
+<span class="nc" id="L68">		assertEquals(0, myCalculator.divide(4, -15));</span>
+
+
+<span class="nc" id="L71">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>MyListImplTestAutomates (6 nov. 2014 23:21:22)</div></body></html>
