@@ -41,7 +41,7 @@ public class CalculatorTestBBlanche {
 	}
 
 	@Test
-	public void testdiv() {
+	public void testDiv() {
 		// Quand on a un reste null
 		assertEquals(5, myCalculator.divide(15, 3));
 		assertEquals(-5, myCalculator.divide(-15, 3));
